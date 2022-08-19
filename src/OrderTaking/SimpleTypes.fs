@@ -139,3 +139,5 @@ module BillingAmount =
 
     let create fieldName x =
         ConstrainedType.createDecimal fieldName BillingAmount 0.0m Decimal.MaxValue x
+
+    let sum prices = prices |> List.sumBy Price.value
