@@ -137,6 +137,16 @@ module EmailAddress =
         let pattern = ".+@.+"
         ConstrainedType.createLike fieldName EmailAddress pattern x
 
+
+module ZipCode =
+
+    let value (ZipCode zc) = zc
+
+    let create fieldName x =
+        let pattern = "\d{5,10}"
+        ConstrainedType.createLike fieldName ZipCode pattern x
+
+
 module UnitQuantity =
 
     let value (UnitQuantity qty) = qty
