@@ -85,6 +85,16 @@ module ConstrainedType =
             Ok (ctor str)
 
 
+    let createStringOption fieldName ctor maxLen str =
+        if str |> String.IsNullOrEmpty then
+            Ok None
+        elif str.Length > maxLen then
+            let msg = sprintf "%s must not be more than %i chars" fieldName maxLen
+            Error msg
+        else
+            Ok (ctor str |> Some)
+
+
 module UnitQuantity =
 
     let create qty =
