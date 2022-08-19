@@ -147,8 +147,8 @@ module OrderQuantity =
 
     let value qty =
         match qty with
-        | Unit(UnitQuantity u) -> u |> decimal
-        | Kilos(KilogramQuantity k) -> k
+        | Unit (UnitQuantity u) -> u |> decimal
+        | Kilos (KilogramQuantity k) -> k
 
     let create fieldName productCode amount =
         match productCode with
@@ -158,3 +158,26 @@ module OrderQuantity =
         | Gizmo _ ->
             KilogramQuantity.create fieldName amount
             |> Result.map OrderQuantity.Kilos
+
+
+module ProductCode =
+
+    let value code =
+        match code with
+        | Widget (WidgetCode wc) -> wc
+        | Gizmo (GizmoCode gc) -> gc
+
+    let create fieldName code =
+        if code |> String.IsNullOrEmpty then
+            let msg = sprintf "%s must not be null or empty" code
+            Error msg
+        else match code[0] with
+            | 'W' ->
+                WidgetCode.create fieldName code
+                |> Result.map ProductCode.Widget
+            | 'G' ->
+                GizmoCode.create fieldName code
+                |> Result.map ProductCode.Gizmo
+            | _ ->
+                let msg = sprintf "%s: format not recognized" code
+                Error msg
