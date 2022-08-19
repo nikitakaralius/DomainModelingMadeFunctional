@@ -131,3 +131,11 @@ module Price =
 
     let create fieldName x =
         ConstrainedType.createDecimal fieldName Price 0.0m Decimal.MaxValue x
+
+
+module BillingAmount =
+
+    let value (BillingAmount b) = b
+
+    let create fieldName x =
+        ConstrainedType.createDecimal fieldName BillingAmount 0.0m Decimal.MaxValue x
