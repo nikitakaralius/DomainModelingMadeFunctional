@@ -114,3 +114,11 @@ module OrderId =
 
     let create fieldName x =
         ConstrainedType.createString fieldName OrderId 50 x
+
+
+module OrderLineId =
+
+    let value (OrderLineId id) = id
+
+    let create fieldName x =
+        ConstrainedType.createString fieldName OrderLineId 50 x
