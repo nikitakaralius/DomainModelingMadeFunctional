@@ -106,6 +106,17 @@ module ConstrainedType =
             Ok (ctor x)
 
 
+    let createDecimal fieldName ctor minVal maxVal x =
+        if x < minVal then
+            let msg = sprintf "%s must not be less than %M" fieldName minVal
+            Error msg
+        elif x > maxVal then
+            let msg = sprintf "%s must not be greater than %M" fieldName maxVal
+            Error msg
+        else
+            Ok (ctor x)
+
+
 module UnitQuantity =
 
     let create qty =
