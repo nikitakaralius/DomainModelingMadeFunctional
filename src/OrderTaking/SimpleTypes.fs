@@ -23,10 +23,10 @@ type UnitQuantity = private UnitQuantity of int
 /// Constrained to be a decimal between 0.05 and 100.0
 type KilogramQuantity = private KilogramQuantity of decimal
 
-/// An Id for orders. Constrained to be a non-empty string < 10 chars
+/// An Id for orders. Constrained to be a non-empty string < 50 chars
 type OrderId = private OrderId of string
 
-/// An Id for order lines. Constrained to be a non-empty string < 10 chars.
+/// An Id for order lines. Constrained to be a non-empty string < 50 chars.
 type OrderLineId = private OrderLineId of string
 
 /// Constrained to be > 0.0
@@ -106,3 +106,11 @@ module KilogramQuantity =
 
     let create fieldName x =
         ConstrainedType.createDecimal fieldName KilogramQuantity 0.05m 1000.0m x
+
+
+module OrderId =
+
+    let value (OrderId id) = id
+
+    let create fieldName x =
+        ConstrainedType.createString fieldName OrderId 50 x
