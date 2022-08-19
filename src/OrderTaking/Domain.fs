@@ -129,12 +129,7 @@ module ConstrainedType =
 
 module UnitQuantity =
 
-    let create qty =
-        if qty < 1 then
-            Error "UnitQuantity can not be negative"
-        else if qty > 1000 then
-            Error "UnitQuantity can not be more than 1000"
-        else
-            Ok (UnitQuantity qty)
-
     let value (UnitQuantity qty) = qty
+
+    let create fieldName x =
+        ConstrainedType.createInt fieldName UnitQuantity 1 1000 x
