@@ -128,6 +128,15 @@ module String50 =
     let createOption fieldName x =
         ConstrainedType.createStringOption fieldName String50 50 x
 
+
+module EmailAddress =
+
+    let value (EmailAddress address) = address
+
+    let create fieldName x =
+        let pattern = ".+@.+"
+        ConstrainedType.createLike fieldName EmailAddress pattern x
+
 module UnitQuantity =
 
     let value (UnitQuantity qty) = qty
