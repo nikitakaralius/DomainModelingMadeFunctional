@@ -95,6 +95,17 @@ module ConstrainedType =
             Ok (ctor str |> Some)
 
 
+    let createInt fieldName ctor minVal maxVal x =
+        if x < minVal then
+            let msg = sprintf "%s must not be less than %i" fieldName minVal
+            Error msg
+        elif x > maxVal then
+            let msg = sprintf "%s must not be greater than %i" fieldName maxVal
+            Error msg
+        else
+            Ok (ctor x)
+
+
 module UnitQuantity =
 
     let create qty =
