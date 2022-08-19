@@ -4,19 +4,25 @@ open OrderTaking.Common
 open System
 open System.Text.RegularExpressions
 
-// constraint: starting with "W" then 4 digits
-type WidgetCode = WidgetCode of string
+/// Constrained to be 50 chars or less, not null
+type String50 = private String50 of string
 
-// constraint: starting with "G" then 3 digits
-type GizmoCode = GizmoCode of string
+type EmailAddress = private EmailAddress of string
+
+/// Starting with "W" then 4 digits
+type WidgetCode = private WidgetCode of string
+
+/// Starting with "G" then 3 digits
+type GizmoCode = private GizmoCode of string
 
 type ProductCode =
     | Widget of WidgetCode
     | Gizmo of GizmoCode
 
+/// Constrained to be an integer between 1 and 1000
 type UnitQuantity = private UnitQuantity of int
 
-// constraint: range(0.05, 1000.0)
+/// Constrained to be a decimal between 0.05 and 100.0
 type KilogramQuantity = KilogramQuantity of decimal
 
 type OrderQuantity =

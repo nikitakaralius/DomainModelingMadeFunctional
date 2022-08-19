@@ -6,7 +6,7 @@
 
     <ItemGroup>
       <Compile Include="Common.fs" />
-      <Compile Include="Domain.fs" />
+      <Compile Include="SimpleTypes.fs" />
     </ItemGroup>
 
 </Project>
