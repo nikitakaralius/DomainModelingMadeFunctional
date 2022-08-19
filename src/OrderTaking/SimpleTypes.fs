@@ -169,9 +169,12 @@ module ProductCode =
 
     let create fieldName code =
         if code |> String.IsNullOrEmpty then
-            let msg = sprintf "%s must not be null or empty" code
+            let msg =
+                sprintf "%s must not be null or empty" code
+
             Error msg
-        else match code[0] with
+        else
+            match code[0] with
             | 'W' ->
                 WidgetCode.create fieldName code
                 |> Result.map ProductCode.Widget
@@ -179,5 +182,7 @@ module ProductCode =
                 GizmoCode.create fieldName code
                 |> Result.map ProductCode.Gizmo
             | _ ->
-                let msg = sprintf "%s: format not recognized" code
+                let msg =
+                    sprintf "%s: format not recognized" code
+
                 Error msg
