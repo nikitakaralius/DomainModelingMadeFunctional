@@ -1,5 +1,7 @@
 namespace OrderTaking.Domain
 
+open OrderTaking.Common
+
 // constraint: starting with "W" then 4 digits
 type WidgetCode = WidgetCode of string
 
@@ -19,3 +21,6 @@ type OrderQuantity =
     | Unit of UnitQuantity
     | Kilos of KilogramQuantity
 
+type OrderId = Undefined
+type OrderLineId = Undefined
+type CustomerId = Undefined
