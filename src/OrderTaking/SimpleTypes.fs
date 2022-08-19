@@ -167,7 +167,15 @@ module GizmoCode =
 
 module UnitQuantity =
 
-    let value (UnitQuantity qty) = qty
+    let value (UnitQuantity q) = q
 
     let create fieldName x =
         ConstrainedType.createInt fieldName UnitQuantity 1 1000 x
+
+
+module KilogramQuantity =
+
+    let value (KilogramQuantity q) = q
+
+    let create fieldName x =
+        ConstrainedType.createDecimal fieldName KilogramQuantity 0.05m 1000.0m x
