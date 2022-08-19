@@ -1,6 +1,7 @@
 namespace OrderTaking.Domain
 
 open OrderTaking.Common
+open System
 
 // constraint: starting with "W" then 4 digits
 type WidgetCode = WidgetCode of string
@@ -71,6 +72,17 @@ and ValidationError = {
 type PlaceOrder = UnvalidatedOrder -> Result<PlacedOrderEvents, PlaceOrderError>
 
 
+module ConstrainedType =
+
+    let createString fieldName ctor maxLen str =
+        if str |> String.IsNullOrEmpty then
+            let msg = sprintf "%s must not be null or empty" fieldName
+            Error msg
+        elif str.Length > maxLen then
+            let msg = sprintf "%s must not be more than %i chars" fieldName maxLen
+            Error msg
+        else
+            Ok (ctor str)
 
 
 module UnitQuantity =
@@ -82,3 +94,5 @@ module UnitQuantity =
             Error "UnitQuantity can not be more than 1000"
         else
             Ok (UnitQuantity qty)
+
+    let value (UnitQuantity qty) = qty
