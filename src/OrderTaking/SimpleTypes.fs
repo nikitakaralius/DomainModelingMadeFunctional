@@ -1,82 +1,50 @@
 namespace OrderTaking.Domain
 
-open OrderTaking.Common
 open System
 open System.Text.RegularExpressions
+open Microsoft.FSharp.Core
 
 /// Constrained to be 50 chars or less, not null
 type String50 = private String50 of string
 
+/// An email address
 type EmailAddress = private EmailAddress of string
 
-/// Starting with "W" then 4 digits
+// A zip code
+type ZipCode = private ZipCode of string
+
+/// The codes for "Widgets". Starting with "W" then 4 digits
 type WidgetCode = private WidgetCode of string
 
-/// Starting with "G" then 3 digits
+/// The codes for "Gizmos". Starting with "G" then 3 digits
 type GizmoCode = private GizmoCode of string
-
-type ProductCode =
-    | Widget of WidgetCode
-    | Gizmo of GizmoCode
 
 /// Constrained to be an integer between 1 and 1000
 type UnitQuantity = private UnitQuantity of int
 
 /// Constrained to be a decimal between 0.05 and 100.0
-type KilogramQuantity = KilogramQuantity of decimal
+type KilogramQuantity = private KilogramQuantity of decimal
+
+/// An Id for orders. Constrained to be a non-empty string < 10 chars
+type OrderId = private OrderId of string
+
+/// An Id for order lines. Constrained to be a non-empty string < 10 chars.
+type OrderLineId = private OrderLineId of string
+
+/// Constrained to be > 0.0
+type Price = private Price of decimal
+
+/// Constrained to be > 0.0
+type BillingAmount = private BillingAmount of decimal
+
 
 type OrderQuantity =
     | Unit of UnitQuantity
     | Kilos of KilogramQuantity
 
-type OrderId = Undefined
-type OrderLineId = Undefined
-type CustomerId = Undefined
-
-type CustomerInfo = Undefined
-type ShippingAddress = Undefined
-type BillingAddress = Undefined
-type Price = Undefined
-type BillingAmount = Undefined
-
-type Order = {
-    Id: OrderId
-    CustomerId: CustomerId
-    ShippingAddress: ShippingAddress
-    BillingAddress: BillingAddress
-    OrderLines: OrderLine list
-    AmountToBill: BillingAmount
-}
-
-and OrderLine = {
-    Id: OrderLineId
-    OrderId: OrderId
-    ProductCode: ProductCode
-    OrderQuantity: OrderQuantity
-    Price: Price
-}
-
-type UnvalidatedOrder = {
-    OrderId: string
-    CustomerInfo: ...
-    ShippingAddress: ...
-}
-
-type PlacedOrderEvents = {
-    AcknowledgmentSent: ...
-    OrderPlaced: ...
-    BillableOrderPlaced: ...
-}
-
-type PlaceOrderError =
-    | ValidationError of ValidationError list
-
-and ValidationError = {
-    FieldName: string
-    ErrorDescription: string
-}
-
-type PlaceOrder = UnvalidatedOrder -> Result<PlacedOrderEvents, PlaceOrderError>
+type ProductCode =
+    | Widget of WidgetCode
+    | Gizmo of GizmoCode
 
 
 module ConstrainedType =
