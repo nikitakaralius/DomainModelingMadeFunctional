@@ -12,7 +12,7 @@ type ProductCode =
     | Widget of WidgetCode
     | Gizmo of GizmoCode
 
-type UnitQuantity = UnitQuantity of int
+type UnitQuantity = private UnitQuantity of int
 
 // constraint: range(0.05, 1000.0)
 type KilogramQuantity = KilogramQuantity of decimal
@@ -69,3 +69,16 @@ and ValidationError = {
 }
 
 type PlaceOrder = UnvalidatedOrder -> Result<PlacedOrderEvents, PlaceOrderError>
+
+
+
+
+module UnitQuantity =
+
+    let create qty =
+        if qty < 1 then
+            Error "UnitQuantity can not be negative"
+        else if qty > 1000 then
+            Error "UnitQuantity can not be more than 1000"
+        else
+            Ok (UnitQuantity qty)
