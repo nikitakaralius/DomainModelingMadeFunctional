@@ -141,3 +141,20 @@ module BillingAmount =
         ConstrainedType.createDecimal fieldName BillingAmount 0.0m Decimal.MaxValue x
 
     let sum prices = prices |> List.sumBy Price.value
+
+
+module OrderQuantity =
+
+    let value qty =
+        match qty with
+        | Unit(UnitQuantity u) -> u |> decimal
+        | Kilos(KilogramQuantity k) -> k
+
+    let create fieldName productCode amount =
+        match productCode with
+        | Widget _ ->
+            UnitQuantity.create fieldName (int amount)
+            |> Result.map OrderQuantity.Unit
+        | Gizmo _ ->
+            KilogramQuantity.create fieldName amount
+            |> Result.map OrderQuantity.Kilos
