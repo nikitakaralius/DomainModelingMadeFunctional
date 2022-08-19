@@ -118,6 +118,16 @@ module ConstrainedType =
             Ok(ctor x)
 
 
+module String50 =
+
+    let value (String50 s) = s
+
+    let create fieldName x =
+        ConstrainedType.createString fieldName String50 50 x
+
+    let createOption fieldName x =
+        ConstrainedType.createStringOption fieldName String50 50 x
+
 module UnitQuantity =
 
     let value (UnitQuantity qty) = qty
