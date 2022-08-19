@@ -147,6 +147,15 @@ module ZipCode =
         ConstrainedType.createLike fieldName ZipCode pattern x
 
 
+module WidgetCode =
+
+    let value (WidgetCode c) = c
+
+    let create fieldName x =
+        let pattern = "W\d{4}"
+        ConstrainedType.createLike fieldName WidgetCode pattern x
+
+
 module UnitQuantity =
 
     let value (UnitQuantity qty) = qty
