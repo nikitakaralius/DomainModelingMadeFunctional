@@ -1,5 +1,6 @@
 namespace OrderTaking.Domain
 
+open System
 open OrderTaking.Common
 
 /// Constrained to be 50 chars or less, not null
@@ -122,3 +123,11 @@ module OrderLineId =
 
     let create fieldName x =
         ConstrainedType.createString fieldName OrderLineId 50 x
+
+
+module Price =
+
+    let value (Price p) = p
+
+    let create fieldName x =
+        ConstrainedType.createDecimal fieldName Price 0.0m Decimal.MaxValue x
