@@ -47,3 +47,25 @@ and OrderLine = {
     OrderQuantity: OrderQuantity
     Price: Price
 }
+
+type UnvalidatedOrder = {
+    OrderId: string
+    CustomerInfo: ...
+    ShippingAddress: ...
+}
+
+type PlacedOrderEvents = {
+    AcknowledgmentSent: ...
+    OrderPlaced: ...
+    BillableOrderPlaced: ...
+}
+
+type PlaceOrderError =
+    | ValidationError of ValidationError list
+
+and ValidationError = {
+    FieldName: string
+    ErrorDescription: string
+}
+
+type PlaceOrder = UnvalidatedOrder -> Result<PlacedOrderEvents, PlaceOrderError>
