@@ -156,6 +156,15 @@ module WidgetCode =
         ConstrainedType.createLike fieldName WidgetCode pattern x
 
 
+module GizmoCode =
+
+    let value (GizmoCode c) = c
+
+    let create fieldName x =
+        let pattern = "G\d{3}"
+        ConstrainedType.createLike fieldName GizmoCode pattern x
+
+
 module UnitQuantity =
 
     let value (UnitQuantity qty) = qty
